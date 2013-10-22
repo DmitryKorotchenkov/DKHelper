@@ -11,21 +11,17 @@
 
 @implementation DKKeyboardToolbarWithHideButton
 
--(id)initWithHideButtonText:(NSString *)text {
+- (id)init {
     self = [super initWithFrame:CGRectMake(0, 0, 320, kDRKeyboardToolbarHeight)];
     if (self) {
         self.barStyle = UIBarStyleBlackTranslucent;
         self.items = @[
                 [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
-                [[UIBarButtonItem alloc] initWithTitle:text style:UIBarButtonItemStyleDone target:self action:@selector(hideKeyboard)]
+                [[UIBarButtonItem alloc] initWithTitle:@"Hide" style:UIBarButtonItemStyleDone target:self action:@selector(hideKeyboard)]
         ];
     }
 
     return self;
-}
-
-- (id)init {
-    return [self initWithHideButtonText:@"Hide"];
 }
 
 - (void)hideKeyboard {

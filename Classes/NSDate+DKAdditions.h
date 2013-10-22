@@ -10,10 +10,9 @@
 
 @interface NSDate (DKAdditions)
 
-+ (NSDate *)dateFromString:(NSString *)dateString withFormat:(NSString *)format;
-
 - (BOOL)isSameDay:(NSDate *)date;
 
 - (NSString *)stringWithFormat:(NSString *)dateFormat;
 
+- (NSUInteger)daysInMonth;
 @end

@@ -11,7 +11,5 @@
 static const float kDRKeyboardToolbarHeight = 44.0;
 
 @interface DKKeyboardToolbarWithHideButton : UIToolbar
-- (id)initWithHideButtonText:(NSString *)text;
-
 - (id)init;
 @end

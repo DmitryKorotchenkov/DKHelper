@@ -46,15 +46,15 @@
     self.left = right - self.width;
 }
 
--(CGPoint)innerCenter {
-    return CGPointMake(self.width/2, self.height/2);
+- (CGPoint)innerCenter {
+    return CGPointMake(self.width / 2, self.height / 2);
 }
 
--(CGFloat)innerCenterX {
+- (CGFloat)innerCenterX {
     return self.innerCenter.x;
 }
 
--(CGFloat)innerCenterY {
+- (CGFloat)innerCenterY {
     return self.innerCenter.y;
 }
 
@@ -92,6 +92,12 @@
     CGRect frame = self.frame;
     frame.size.width = width;
     self.frame = frame;
+}
+
+- (void)removeAllSubviews {
+    for (UIView *subview in self.subviews) {
+        [subview removeFromSuperview];
+    }
 }
 
 #pragma mark Animations
