@@ -11,6 +11,12 @@
 
 @implementation NSDate (DKAdditions)
 
++ (NSDate *)dateFromString:(NSString *)dateString withFormat:(NSString *)format {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:format];
+    return [formatter dateFromString:dateString];
+}
+
 -(BOOL)isSameDay:(NSDate *)date {
     NSCalendar* calendar = [NSCalendar currentCalendar];
 
