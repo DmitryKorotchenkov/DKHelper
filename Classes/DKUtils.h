@@ -11,8 +11,6 @@
 
 @interface DKUtils : NSObject
 
-+ (UIImage *)imageWithFrame:(CGRect)rect color:(UIColor *)color;
-
 + (UIColor *)colorWithRed:(NSUInteger)red green:(NSUInteger)green blue:(NSUInteger)blue;
 
 + (UIColor *)colorWithRed:(NSUInteger)red green:(NSUInteger)green blue:(NSUInteger)blue alpha:(CGFloat)alpha;
