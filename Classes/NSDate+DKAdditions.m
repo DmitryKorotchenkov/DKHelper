@@ -17,25 +17,30 @@
     return [formatter dateFromString:dateString];
 }
 
--(BOOL)isSameDay:(NSDate *)date {
-    NSCalendar* calendar = [NSCalendar currentCalendar];
+- (BOOL)isSameDay:(NSDate *)date {
+    NSCalendar *calendar = [NSCalendar currentCalendar];
 
-    unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit;
-    NSDateComponents* comp1 = [calendar components:unitFlags fromDate:self];
-    NSDateComponents* comp2 = [calendar components:unitFlags fromDate:date];
+    unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit;
+    NSDateComponents *comp1 = [calendar components:unitFlags fromDate:self];
+    NSDateComponents *comp2 = [calendar components:unitFlags fromDate:date];
 
-    return [comp1 day]   == [comp2 day] &&
+    return [comp1 day] == [comp2 day] &&
             [comp1 month] == [comp2 month] &&
-            [comp1 year]  == [comp2 year];
+            [comp1 year] == [comp2 year];
 }
 
--(NSString *)stringWithFormat:(NSString *)dateFormat {
+- (NSString *)stringWithFormat:(NSString *)dateFormat {
+    return [self stringWithFormat:dateFormat inTimeZone:[NSTimeZone defaultTimeZone]];
+}
+
+- (NSString *)stringWithFormat:(NSString *)dateFormat inTimeZone:(NSTimeZone *)timeZone {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setTimeZone:timeZone];
     [formatter setDateFormat:dateFormat];
     return [formatter stringFromDate:self];
 }
 
--(NSUInteger)daysInMonth {
+- (NSUInteger)daysInMonth {
     return [[NSCalendar currentCalendar] rangeOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitMonth forDate:self].length;
 }
 
