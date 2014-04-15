@@ -18,5 +18,7 @@
 
 - (NSString *)stringWithFormat:(NSString *)dateFormat inTimeZone:(NSTimeZone *)timeZone;
 
+- (NSString *)stringWithFormat:(NSString *)dateFormat locale:(NSLocale *)locale inTimeZone:(NSTimeZone *)timeZone;
+
 - (NSUInteger)daysInMonth;
 @end

@@ -34,8 +34,17 @@
 }
 
 - (NSString *)stringWithFormat:(NSString *)dateFormat inTimeZone:(NSTimeZone *)timeZone {
+    return [self stringWithFormat:dateFormat locale:nil inTimeZone:timeZone];
+}
+
+- (NSString *)stringWithFormat:(NSString *)dateFormat locale:(NSLocale *)locale inTimeZone:(NSTimeZone *)timeZone {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setTimeZone:timeZone];
+    if (timeZone) {
+        [formatter setTimeZone:timeZone];
+    }
+    if (locale) {
+        [formatter setLocale:locale];
+    }
     [formatter setDateFormat:dateFormat];
     return [formatter stringFromDate:self];
 }
