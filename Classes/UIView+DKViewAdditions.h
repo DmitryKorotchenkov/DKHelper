@@ -6,6 +6,7 @@
 
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface UIView (DKViewAdditions)
 
@@ -26,7 +27,7 @@
 
 - (void)removeAllSubviews;
 
-+ (void)animateFromCurrentStateWithDuration:(NSTimeInterval)duration animations:(void (^)())animations NS_AVAILABLE_IOS(4_0);
++ (void)animateFromCurrentStateWithDuration:(NSTimeInterval)duration animations:(void (^)(void))animations NS_AVAILABLE_IOS(4_0);
 
 + (void)animateFromCurrentStateWithDuration:(NSTimeInterval)duration animations:(void (^)(void))animations completion:(void (^)(BOOL finished))completion NS_AVAILABLE_IOS(4_0);
 
