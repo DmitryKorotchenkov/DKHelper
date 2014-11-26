@@ -15,4 +15,6 @@
 
 - (UIImage *)insertImageBelowSelf:(UIImage *)insertedImage withPosition:(CGPoint)position;
 
++ (UIImage *)createEllipseWithSize:(CGSize)size color:(UIColor *)color;
+
 @end

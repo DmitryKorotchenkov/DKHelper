@@ -63,4 +63,17 @@
     return image;
 }
 
++ (UIImage *)createEllipseWithSize:(CGSize)size color:(UIColor *)color {
+    UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillEllipseInRect(context, CGRectMake(0, 0, size.width, size.height));
+
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return image;
+}
+
 @end

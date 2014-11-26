@@ -31,4 +31,6 @@
 
 + (void)animateFromCurrentStateWithDuration:(NSTimeInterval)duration animations:(void (^)(void))animations completion:(void (^)(BOOL finished))completion NS_AVAILABLE_IOS(4_0);
 
+- (UIImage *)imageFromView;
+
 @end
