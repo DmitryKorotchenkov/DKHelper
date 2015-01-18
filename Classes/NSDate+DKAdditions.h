@@ -46,10 +46,6 @@
 
 - (BOOL)isMoreThanOrEqual:(NSDate *)date;
 
-+ (NSCalendar *)UTCCalendar;
-
-+ (NSTimeZone *)UTCTimeZone;
-
 + (NSDate *)makeDate:(NSInteger)day :(NSInteger)month :(NSInteger)year;
 
 + (NSDate *)today;

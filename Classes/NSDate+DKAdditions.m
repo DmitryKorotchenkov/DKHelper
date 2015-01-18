@@ -49,7 +49,7 @@ static NSString *const kCalendarKey = @"UTCCalendar";
     [components setMinute:59];
     components.day = 31;
     components.month = 12;
-    return [[NSDate UTCCalendar] dateFromComponents:components];
+    return [[NSCalendar currentCalendar] dateFromComponents:components];
 }
 
 + (NSDate *)beginOfYear:(NSInteger)year {
@@ -57,7 +57,7 @@ static NSString *const kCalendarKey = @"UTCCalendar";
     components.year = year;
     components.day = 1;
     components.month = 1;
-    return [[NSDate UTCCalendar] dateFromComponents:components];
+    return [[NSCalendar currentCalendar] dateFromComponents:components];
 }
 
 + (NSInteger)currentYear {
@@ -75,7 +75,7 @@ static NSString *const kCalendarKey = @"UTCCalendar";
     [components setHour:0];
     [components setMinute:0];
     [components setSecond:0];
-    return [[NSDate UTCCalendar] dateFromComponents:components];
+    return [[NSCalendar currentCalendar] dateFromComponents:components];
 }
 
 - (NSDate *)endOfDay {
@@ -83,7 +83,7 @@ static NSString *const kCalendarKey = @"UTCCalendar";
     [components setHour:23];
     [components setMinute:59];
     [components setSecond:59];
-    return [[NSDate UTCCalendar] dateFromComponents:components];
+    return [[NSCalendar currentCalendar] dateFromComponents:components];
 }
 
 - (NSDate *)beginOfMonth {
@@ -92,7 +92,7 @@ static NSString *const kCalendarKey = @"UTCCalendar";
     [components setHour:0];
     [components setMinute:0];
     [components setSecond:0];
-    return [[NSDate UTCCalendar] dateFromComponents:components];
+    return [[NSCalendar currentCalendar] dateFromComponents:components];
 }
 
 - (NSDate *)endOfMonth {
@@ -101,7 +101,7 @@ static NSString *const kCalendarKey = @"UTCCalendar";
     [components setDay:1];
     [components setHour:0];
     [components setMinute:-1];
-    return [[NSDate UTCCalendar] dateFromComponents:components];
+    return [[NSCalendar currentCalendar] dateFromComponents:components];
 }
 
 - (BOOL)isSameDay:(NSDate *)date {
@@ -124,28 +124,8 @@ static NSString *const kCalendarKey = @"UTCCalendar";
     return ([self.beginOfDay compare:date.beginOfDay] == NSOrderedDescending) || ([self isSameDay:date]);
 }
 
-+ (NSCalendar *)UTCCalendar {
-    NSMutableDictionary *threadLocal = [NSThread currentThread].threadDictionary;
-    NSCalendar *calendar = [threadLocal objectForKey:kCalendarKey];
-    if (!calendar) {
-        calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-        [calendar setTimeZone:[self UTCTimeZone]];
-        [calendar setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"ru_RU"]];
-        [threadLocal setObject:calendar forKey:kCalendarKey];
-    }
-    return calendar;
-}
-
-+ (NSTimeZone *)UTCTimeZone {
-    static NSTimeZone *timeZone = nil;
-    if (!timeZone) {
-        timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
-    }
-    return timeZone;
-}
-
 + (NSDate *)makeDate:(NSInteger)day :(NSInteger)month :(NSInteger)year {
-    NSCalendar *calendar = [NSDate UTCCalendar];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *comps = [[NSDateComponents alloc] init];
     [comps setDay:day];
     [comps setMonth:month];
@@ -154,14 +134,14 @@ static NSString *const kCalendarKey = @"UTCCalendar";
 }
 
 + (NSDate *)today {
-    NSCalendar *calendar = [NSDate UTCCalendar];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *components = [calendar components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit
                                                fromDate:[NSDate date]];
     return [calendar dateFromComponents:components];
 }
 
 + (NSDate *)dateInUTC {
-    NSCalendar *calendar = [NSDate UTCCalendar];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *components = [calendar components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit |
                     NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit
                                                fromDate:[NSDate date]];
@@ -173,14 +153,14 @@ static NSString *const kCalendarKey = @"UTCCalendar";
 }
 
 - (NSDate *)dateByAddingDays:(NSInteger)number {
-    NSCalendar *calendar = [NSDate UTCCalendar];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *components = [[NSDateComponents alloc] init];
     components.day = number;
     return [calendar dateByAddingComponents:components toDate:self options:0];
 }
 
 - (NSDate *)dateByAddingMonths:(NSInteger)number {
-    NSCalendar *calendar = [NSDate UTCCalendar];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
     [dateComponents setMonth:number];
     return [calendar dateByAddingComponents:dateComponents toDate:self options:0];
@@ -190,8 +170,7 @@ static NSString *const kCalendarKey = @"UTCCalendar";
     static NSDateFormatter *dateFormatter = nil;
     if (!dateFormatter) {
         dateFormatter = [[NSDateFormatter alloc] init];
-        dateFormatter.calendar = [NSDate UTCCalendar];
-        dateFormatter.timeZone = [NSDate UTCTimeZone];
+        dateFormatter.calendar = [NSCalendar currentCalendar];
     }
     dateFormatter.dateFormat = format;
     return [dateFormatter stringFromDate:self];
@@ -218,7 +197,7 @@ static NSString *const kCalendarKey = @"UTCCalendar";
 }
 
 - (NSDate *)nthWeekDay:(NSInteger)weekDay {
-    NSCalendar *calendar = [NSDate UTCCalendar];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *comps = [calendar components:NSYearForWeekOfYearCalendarUnit | NSYearCalendarUnit | NSMonthCalendarUnit | NSWeekCalendarUnit | NSWeekdayCalendarUnit
                                           fromDate:self];
     [comps setWeekday:weekDay];
@@ -226,7 +205,7 @@ static NSString *const kCalendarKey = @"UTCCalendar";
 }
 
 - (NSInteger)daysToDate:(NSDate *)date {
-    NSCalendar *calendar = [NSDate UTCCalendar];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *components = [calendar components:NSDayCalendarUnit
                                                fromDate:self
                                                  toDate:date
@@ -235,7 +214,7 @@ static NSString *const kCalendarKey = @"UTCCalendar";
 }
 
 - (NSDateComponents *)components {
-    NSCalendar *calendar = [NSDate UTCCalendar];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
     NSUInteger comp = NSYearCalendarUnit | NSMonthCalendarUnit | NSWeekdayCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
     return [calendar components:comp fromDate:self];
 }
